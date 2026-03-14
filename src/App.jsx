@@ -7,7 +7,8 @@ import HomeFeed from './pages/HomeFeed';
 import Reservations from './pages/Reservations';
 import AdminDashboard from './pages/AdminDashboard';
 import Spaces from './pages/Spaces';
-import Messages from './pages/Messages'; // <-- IMPORT THIS
+import Messages from './pages/Messages';
+import Profile from './pages/Profile'; // <-- IMPORT THIS
 
 function App() {
   return (
@@ -21,8 +22,8 @@ function App() {
           <Route index element={<HomeFeed />} />
           <Route path="reservations" element={<Reservations />} />
           <Route path="spaces" element={<Spaces />} />
-          <Route path="messages" element={<Messages />} /> {/* <-- UPDATE THIS ROUTE */}
-          <Route path="profile" element={<div className="p-8 text-center text-slate-400 bg-slate-900/50 rounded-2xl border border-white/5">Profile Coming Soon</div>} />
+          <Route path="messages" element={<Messages />} />
+          <Route path="profile" element={<Profile />} /> {/* <-- UPDATE THIS ROUTE */}
         </Route>
       </Routes>
     </BrowserRouter>
