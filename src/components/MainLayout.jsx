@@ -11,7 +11,8 @@ import {
   MessageCircle,
   Plus,
   CheckCircle,
-  Clock
+  Clock,
+  BookOpen
 } from 'lucide-react';
 
 // --- Static Data for Widgets ---
@@ -28,8 +29,8 @@ const MY_TEACHERS = [
 ];
 
 const UPCOMING_RESERVATIONS = [
-  { id: 101, room: "Salle Info 1", time: "14:30", status: "Approved", date: "Today" },
-  { id: 102, room: "Atelier Réseau", time: "08:30", status: "Pending", date: "Tomorrow" },
+  { id: 101, room: "Salle Info 1", time: "14:30", status: "Approved", date: "Aujourd'hui" },
+  { id: 102, room: "Atelier Réseau", time: "08:30", status: "Pending", date: "Demain" },
 ];
 
 const MainLayout = () => {
@@ -37,10 +38,11 @@ const MainLayout = () => {
 
   const navItems = [
     { path: '/dashboard', icon: <Home size={20} />, label: 'Campus Feed' },
-    { path: '/dashboard/reservations', icon: <CalendarIcon size={20} />, label: 'My Reservations' },
-    { path: '/dashboard/spaces', icon: <MapPin size={20} />, label: 'Spaces & Rooms' },
+    { path: '/dashboard/schedule', icon: <BookOpen size={20} />, label: 'Emploi du Temps' },
+    { path: '/dashboard/reservations', icon: <CalendarIcon size={20} />, label: 'Mes Réservations' },
+    { path: '/dashboard/spaces', icon: <MapPin size={20} />, label: 'Espaces & Salles' },
     { path: '/dashboard/messages', icon: <MessageSquare size={20} />, label: 'Messages' },
-    { path: '/dashboard/profile', icon: <User size={20} />, label: 'Profile' },
+    { path: '/dashboard/profile', icon: <User size={20} />, label: 'Mon Profil' },
   ];
 
   return (
@@ -57,7 +59,7 @@ const MainLayout = () => {
           <div className="flex-1 max-w-md mx-4 hidden md:block">
             <div className="relative group">
               <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 group-focus-within:text-purple-400 transition-colors" />
-              <input type="text" placeholder="Search OFPPT Tangier..." className="w-full bg-black/50 border border-white/5 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all" />
+              <input type="text" placeholder="Rechercher OFPPT Tangier..." className="w-full bg-black/50 border border-white/5 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all text-white" />
             </div>
           </div>
 
@@ -66,7 +68,9 @@ const MainLayout = () => {
               <Bell className="w-5 h-5" />
               <span className="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full border-2 border-slate-950"></span>
             </button>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-indigo-500 flex items-center justify-center font-bold text-white text-xs shadow-lg cursor-pointer">SE</div>
+            <Link to="/dashboard/profile" className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-indigo-500 flex items-center justify-center font-bold text-white text-xs shadow-lg cursor-pointer hover:opacity-80 transition-opacity">
+              SE
+            </Link>
           </div>
         </div>
       </nav>
@@ -88,19 +92,18 @@ const MainLayout = () => {
             })}
           </div>
 
-          {/* Restored Quick Actions Button */}
+          {/* Quick Actions Button */}
           <div className="mt-8 border-t border-white/10 pt-6">
-            <h3 className="px-4 text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Quick Actions</h3>
+            <h3 className="px-4 text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Actions Rapides</h3>
             <Link to="/dashboard/reservations" className="w-full mx-auto flex items-center gap-2 justify-center py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-medium transition-all shadow-lg shadow-purple-900/20 group">
               <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform" />
-              <span>New Reservation</span>
+              <span>Nouvelle Réservation</span>
             </Link>
           </div>
         </aside>
 
         {/* --- Center Column (Dynamic Pages load here) --- */}
         <main className="w-full max-w-xl lg:ml-64 lg:mr-80 min-h-[500px]">
-          {/* This <Outlet /> is where HomeFeed.jsx and Reservations.jsx are injected! */}
           <Outlet /> 
         </main>
 
@@ -110,8 +113,8 @@ const MainLayout = () => {
             {/* Widget 1: My Instructors */}
             <div className="bg-slate-900/40 border border-white/5 rounded-2xl p-5 backdrop-blur-sm shadow-xl">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-sm font-bold text-slate-300">My Instructors</h3>
-                  <button className="text-xs text-purple-400 hover:text-purple-300">See all</button>
+                  <h3 className="text-sm font-bold text-slate-300">Mes Professeurs</h3>
+                  <Link to="/dashboard/messages" className="text-xs text-purple-400 hover:text-purple-300">Voir tout</Link>
                 </div>
                 <div className="space-y-4">
                 {MY_TEACHERS.map((teacher) => (
@@ -119,14 +122,14 @@ const MainLayout = () => {
                     <div className="flex items-center gap-3">
                         <div className={`relative w-9 h-9 rounded-full ${teacher.avatar} flex items-center justify-center text-xs font-bold text-white shadow-inner`}>
                         {teacher.name.charAt(0)}
-                        {teacher.isOnline && <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-slate-900 rounded-full" title="Online"></span>}
+                        {teacher.isOnline && <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-slate-900 rounded-full" title="En ligne"></span>}
                         </div>
                         <div>
                         <p className="text-sm font-medium text-slate-200 group-hover:text-purple-400 transition-colors cursor-pointer">{teacher.name}</p>
                         <p className="text-[11px] text-slate-500">{teacher.subject}</p>
                         </div>
                     </div>
-                    <button className="p-2 rounded-full hover:bg-white/5 text-slate-500 hover:text-white transition-colors" title="Message"><MessageCircle className="w-4 h-4" /></button>
+                    <Link to="/dashboard/messages" className="p-2 rounded-full hover:bg-white/5 text-slate-500 hover:text-white transition-colors" title="Message"><MessageCircle className="w-4 h-4" /></Link>
                     </div>
                 ))}
                 </div>
@@ -136,7 +139,7 @@ const MainLayout = () => {
             <div className="bg-slate-900/40 border border-white/5 rounded-2xl p-5 backdrop-blur-sm shadow-xl">
                 <h3 className="text-sm font-bold text-slate-300 mb-4 flex items-center gap-2">
                 <span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
-                Spaces Live Status
+                Espaces en Direct
                 </h3>
                 <div className="space-y-3">
                 {ROOM_STATUS.map((room, i) => (
@@ -148,11 +151,11 @@ const MainLayout = () => {
                 </div>
             </div>
 
-            {/* Widget 3: Mini Reservations View (Restored!) */}
+            {/* Widget 3: Mini Reservations View */}
             <div className="bg-slate-900/40 border border-white/5 rounded-2xl p-5 backdrop-blur-sm shadow-xl">
                 <div className="flex justify-between items-center mb-4">
-                <h3 className="text-sm font-bold text-slate-300">My Reservations</h3>
-                <Link to="/dashboard/reservations" className="text-xs text-purple-400 hover:text-purple-300">View all</Link>
+                <h3 className="text-sm font-bold text-slate-300">Mes Réservations</h3>
+                <Link to="/dashboard/reservations" className="text-xs text-purple-400 hover:text-purple-300">Voir tout</Link>
                 </div>
                 
                 <div className="space-y-3">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { 
   Mail, 
   Lock, 
@@ -15,9 +15,22 @@ import {
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   // Toggle between Login and Signup
   const toggleAuthMode = () => setIsLogin(!isLogin);
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    // Stagiaires, Profs, and existing Admins go to the dashboard
+    navigate('/dashboard');
+  };
+
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
+    // NEW Schools MUST go to the verification waiting room
+    navigate('/onboarding');
+  };
 
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans selection:bg-purple-500 selection:text-white flex overflow-hidden">
@@ -46,10 +59,10 @@ const AuthPage = () => {
               "Since implementing PostResa, our reservation conflicts have dropped to zero. It's not just a tool; it's the heartbeat of our campus communication."
             </p>
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center font-bold shadow-inner text-white">JD</div>
+              <div className="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center font-bold shadow-inner text-white">KA</div>
               <div>
-                <h4 className="font-bold text-white">John Doe</h4>
-                <p className="text-sm text-purple-300">Director at OFPPT</p>
+                <h4 className="font-bold text-white">Karim Azeggouar</h4>
+                <p className="text-sm text-purple-300">Encadrant Pédagogique</p>
               </div>
             </div>
           </div>
@@ -76,132 +89,134 @@ const AuthPage = () => {
                 <span className="text-xl font-bold tracking-tight">PostResa</span>
             </div>
 
-            <div className="text-center mb-10">
+            <div className="text-center mb-8">
                 <motion.h2 
                     key={isLogin ? "login-h2" : "signup-h2"}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-3xl font-bold mb-2 text-white"
                 >
-                    {isLogin ? "Welcome back" : "Create an account"}
+                    {isLogin ? "Welcome back" : "Register Establishment"}
                 </motion.h2>
-                <p className="text-slate-400">
-                    {isLogin ? "Enter your details to access your dashboard." : "Join your campus ecosystem today."}
+                <p className="text-slate-400 text-sm">
+                    {isLogin ? "Enter your details to access your dashboard." : "Create a new workspace for your campus."}
                 </p>
             </div>
 
             {/* Form Container */}
-            <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
-                <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-                    
-                    {/* Sign Up Fields (Name & Role) */}
-                    <AnimatePresence>
-                        {!isLogin && (
-                            <motion.div
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: "auto" }}
-                                exit={{ opacity: 0, height: 0 }}
-                                className="space-y-5 overflow-hidden"
-                            >
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-slate-300">Full Name</label>
-                                    <div className="relative">
-                                        <User className="absolute left-3 top-3.5 w-5 h-5 text-slate-500" />
-                                        <input 
-                                            type="text" 
-                                            placeholder="Soulayman Elkharraz" 
-                                            className="w-full bg-black/50 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder:text-slate-600 text-white"
-                                        />
-                                    </div>
+            <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-8 backdrop-blur-sm shadow-2xl relative">
+                
+                <AnimatePresence mode="wait">
+                    {/* --- LOGIN FORM --- */}
+                    {isLogin ? (
+                        <motion.form 
+                            key="login"
+                            initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.2 }}
+                            onSubmit={handleLoginSubmit} 
+                            className="space-y-5"
+                        >
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300">Email Address</label>
+                                <div className="relative">
+                                    <Mail className="absolute left-3 top-3.5 w-5 h-5 text-slate-500" />
+                                    <input required type="email" placeholder="name@ofppt.ma" className="w-full bg-black/50 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder:text-slate-600 text-white" />
                                 </div>
+                            </div>
 
-                                {/* Role Selection */}
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-slate-300">I am a...</label>
-                                    <div className="relative">
-                                        <Building2 className="absolute left-3 top-3.5 w-5 h-5 text-slate-500" />
-                                        <select className="w-full bg-black/50 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all appearance-none text-slate-300">
-                                            <option value="student">Stagiaire (Student)</option>
-                                            <option value="prof">Prof (Teacher)</option>
-                                            <option value="admin">Admin (Staff)</option>
-                                        </select>
-                                    </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300">Password</label>
+                                <div className="relative">
+                                    <Lock className="absolute left-3 top-3.5 w-5 h-5 text-slate-500" />
+                                    <input required type={showPassword ? "text" : "password"} placeholder="••••••••" className="w-full bg-black/50 border border-white/10 rounded-xl py-3 pl-11 pr-11 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder:text-slate-600 text-white" />
+                                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3.5 text-slate-500 hover:text-white transition-colors">
+                                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                    </button>
                                 </div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                            </div>
 
-                    {/* Common Fields (Email & Password) */}
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-300">Email Address</label>
-                        <div className="relative">
-                            <Mail className="absolute left-3 top-3.5 w-5 h-5 text-slate-500" />
-                            <input 
-                                type="email" 
-                                placeholder="name@ofppt.ma" 
-                                className="w-full bg-black/50 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder:text-slate-600 text-white"
-                            />
-                        </div>
-                    </div>
+                            <div className="flex justify-end">
+                                <a href="#" className="text-xs text-purple-400 hover:text-purple-300 font-medium transition-colors">Forgot password?</a>
+                            </div>
 
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-300">Password</label>
-                        <div className="relative">
-                            <Lock className="absolute left-3 top-3.5 w-5 h-5 text-slate-500" />
-                            <input 
-                                type={showPassword ? "text" : "password"} 
-                                placeholder="••••••••" 
-                                className="w-full bg-black/50 border border-white/10 rounded-xl py-3 pl-11 pr-11 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder:text-slate-600 text-white"
-                            />
-                            <button 
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-3.5 text-slate-500 hover:text-white transition-colors"
-                            >
-                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                            <button type="submit" className="w-full py-3.5 mt-2 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-purple-900/30 transition-all active:scale-[0.98] group">
+                                Sign In <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </button>
-                        </div>
-                    </div>
-
-                    {isLogin && (
-                        <div className="flex justify-end">
-                            <a href="#" className="text-xs text-purple-400 hover:text-purple-300 font-medium transition-colors">Forgot password?</a>
-                        </div>
-                    )}
-
-                    {/* Prototype Demo Links */}
-                    <div className="pt-4 space-y-3">
-                        <Link 
-                            to="/dashboard" 
-                            className="w-full py-3.5 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-purple-900/30 flex items-center justify-center gap-2 group"
-                        >
-                            {isLogin ? "Sign In (Student/Prof Demo)" : "Create Account"}
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                        
-                        {isLogin && (
-                            <Link 
-                                to="/admin" 
-                                className="w-full py-3.5 bg-slate-800 hover:bg-slate-700 text-white border border-white/5 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
-                            >
+                            
+                            {/* Quick demo link for Admin */}
+                            <button type="button" onClick={() => navigate('/admin')} className="w-full py-3.5 bg-slate-800 hover:bg-slate-700 text-white border border-white/5 rounded-xl font-bold transition-all flex items-center justify-center gap-2">
                                 Login as Admin (Demo)
-                            </Link>
-                        )}
-                    </div>
-                </form>
-
-                <div className="mt-8 text-center">
-                    <p className="text-sm text-slate-400">
-                        {isLogin ? "Don't have an account?" : "Already have an account?"}
-                        <button 
-                            onClick={toggleAuthMode}
-                            className="ml-2 text-purple-400 hover:text-white font-medium transition-colors"
+                            </button>
+                        </motion.form>
+                    ) : (
+                        
+                    /* --- SIGN UP FORM (Schools Only) --- */
+                        <motion.form 
+                            key="signup"
+                            initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.2 }}
+                            onSubmit={handleRegisterSubmit} 
+                            className="space-y-5"
                         >
-                            {isLogin ? "Sign up" : "Log in"}
-                        </button>
-                    </p>
-                </div>
+                            <div className="p-3 bg-purple-500/10 border border-purple-500/20 rounded-xl mb-2">
+                              <p className="text-xs text-purple-300 leading-relaxed">
+                                <strong className="text-white">Note:</strong> Stagiaires and Professeurs cannot create accounts. You must receive your login credentials directly from your school administration.
+                              </p>
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300">Establishment Name</label>
+                                <div className="relative">
+                                    <Building2 className="absolute left-3 top-3.5 w-5 h-5 text-slate-500" />
+                                    <input required type="text" placeholder="Ex: ISTA NTIC Tangier" className="w-full bg-black/50 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder:text-slate-600 text-white" />
+                                </div>
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300">Director Name</label>
+                                <div className="relative">
+                                    <User className="absolute left-3 top-3.5 w-5 h-5 text-slate-500" />
+                                    <input required type="text" placeholder="Full Name" className="w-full bg-black/50 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder:text-slate-600 text-white" />
+                                </div>
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300">Work Email</label>
+                                <div className="relative">
+                                    <Mail className="absolute left-3 top-3.5 w-5 h-5 text-slate-500" />
+                                    <input required type="email" placeholder="direction@school.ma" className="w-full bg-black/50 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder:text-slate-600 text-white" />
+                                </div>
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300">Create Password</label>
+                                <div className="relative">
+                                    <Lock className="absolute left-3 top-3.5 w-5 h-5 text-slate-500" />
+                                    <input required type={showPassword ? "text" : "password"} placeholder="••••••••" className="w-full bg-black/50 border border-white/10 rounded-xl py-3 pl-11 pr-11 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder:text-slate-600 text-white" />
+                                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3.5 text-slate-500 hover:text-white transition-colors">
+                                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button type="submit" className="w-full py-3.5 mt-2 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-purple-900/30 transition-all active:scale-[0.98] group">
+                                Next Step <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </button>
+                        </motion.form>
+                    )}
+                </AnimatePresence>
             </div>
+
+            <div className="mt-8 text-center">
+                <p className="text-sm text-slate-400">
+                    {isLogin ? "Want to register a new school?" : "Already verified your school?"}
+                    <button 
+                        onClick={toggleAuthMode}
+                        className="ml-2 text-purple-400 hover:text-white font-medium transition-colors focus:outline-none"
+                    >
+                        {isLogin ? "Sign up here" : "Log in here"}
+                    </button>
+                </p>
+            </div>
+
         </div>
       </div>
     </div>
