@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import Schedule from './pages/Schedule';
 import AdminOnboarding from './pages/AdminOnboarding';
 import SuperAdminDashboard from './pages/SuperAdminDashboard';
+import ProfDashboard from './pages/ProfDashboard';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/onboarding" element={<AdminOnboarding />} />
         <Route path="/superadmin" element={<SuperAdminDashboard />} />
+          <Route path="/prof" element={<ProfDashboard />} />
 
 
         {/* The Dashboard Shell */}
