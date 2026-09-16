@@ -1,0 +1,8 @@
+.git
+.gitignore
+.env
+vendor
+node_modules
+storage/*.key
+storage/logs/*.log
+*.md
