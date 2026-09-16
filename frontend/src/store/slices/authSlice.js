@@ -6,14 +6,17 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials, { rejectWithValue }) => {
     try {
-      // Initialize CSRF protection
-      const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
-      const rootURL = baseURL.replace('/api', '');
-      await api.get(`${rootURL}/sanctum/csrf-cookie`);
+      // Initialize CSRF protection (optional for Bearer token auth)
+      try {
+        const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+        const rootURL = baseURL.replace('/api', '');
+        await api.get(`${rootURL}/sanctum/csrf-cookie`);
+      } catch (e) {
+        // Fallback for token-only auth environments
+      }
 
       const response = await api.post('/login', credentials);
-      // Assuming Laravel Sanctum/JWT returns user data and a token
-      localStorage.setItem('token', response.data.access_token);
+      localStorage.setItem('token', response.data.access_token || response.data.token);
       return response.data.user;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Login failed');
@@ -26,9 +29,13 @@ export const registerUser = createAsyncThunk(
   'auth/registerUser',
   async (userData, { rejectWithValue }) => {
     try {
-      const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
-      const rootURL = baseURL.replace('/api', '');
-      await api.get(`${rootURL}/sanctum/csrf-cookie`);
+      try {
+        const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+        const rootURL = baseURL.replace('/api', '');
+        await api.get(`${rootURL}/sanctum/csrf-cookie`);
+      } catch (e) {
+        // Fallback for token-only auth environments
+      }
 
       const response = await api.post('/register', userData);
       localStorage.setItem('token', response.data.token);
