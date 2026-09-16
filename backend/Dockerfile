@@ -1,5 +1,5 @@
 # Production Dockerfile for Laravel 11 on Render
-FROM php:8.3-fpm-alpine
+FROM php:8.4-fpm-alpine
 
 # Install system dependencies & required PHP extensions
 RUN apk add --no-cache \
@@ -25,7 +25,7 @@ WORKDIR /var/www/html
 COPY . .
 
 # Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs
 
 # Set proper directory permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
