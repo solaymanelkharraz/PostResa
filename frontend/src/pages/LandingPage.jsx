@@ -78,9 +78,7 @@ const LandingPage = () => {
       <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-[#030712]/80 backdrop-blur-xl border-b border-white/5 py-4 shadow-2xl' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-fuchsia-600 rounded-xl flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform duration-300">
-              P
-            </div>
+            <img src="/logo.png" alt="PostResa Logo" className="w-10 h-10 object-contain rounded-xl group-hover:scale-105 transition-transform duration-300" />
             <span className="text-2xl font-bold tracking-tight text-white group-hover:text-indigo-300 transition-colors duration-300">PostResa</span>
           </Link>
 

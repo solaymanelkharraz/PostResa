@@ -131,7 +131,7 @@ const MainLayout = () => {
       <nav className="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5 h-16">
         <div className="container mx-auto px-4 h-full flex justify-between items-center">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-tr from-purple-600 to-indigo-400 rounded-lg flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-purple-900/50">P</div>
+            <img src="/logo.png" alt="PostResa Logo" className="w-8 h-8 object-contain rounded-lg" />
             <span className="text-lg font-bold text-white tracking-tight hidden sm:block">PostResa</span>
           </Link>
 

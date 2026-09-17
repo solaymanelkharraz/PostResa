@@ -110,7 +110,7 @@ const AuthPage = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[120px] z-0" />
         
         <div className="relative z-10 flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-tr from-purple-600 to-indigo-400 rounded-lg flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-purple-900/50">P</div>
+          <img src="/logo.png" alt="PostResa Logo" className="w-8 h-8 object-contain rounded-lg" />
           <span className="text-xl font-bold tracking-tight">PostResa</span>
         </div>
 

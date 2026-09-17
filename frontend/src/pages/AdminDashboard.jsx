@@ -65,7 +65,7 @@ const AdminDashboard = () => {
       {/* --- Sidebar --- */}
       <aside className="w-64 bg-slate-950 border-r border-white/5 flex-shrink-0 fixed h-full z-20 hidden lg:block overflow-y-auto pb-6 custom-scrollbar">
         <div className="p-6 flex items-center gap-2 mb-6">
-          <div className="w-8 h-8 bg-gradient-to-tr from-indigo-500 to-cyan-400 rounded-lg flex items-center justify-center font-bold text-white text-lg">P</div>
+          <img src="/logo.png" alt="PostResa Logo" className="w-8 h-8 object-contain rounded-lg" />
           <span className="text-xl font-bold text-white tracking-tight">PostResa</span>
         </div>
 

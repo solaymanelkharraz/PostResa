@@ -37,7 +37,7 @@ const ProfDashboard = () => {
       {/* --- Sidebar --- */}
       <aside className="w-64 bg-slate-900/40 border-r border-white/5 flex-shrink-0 fixed h-full z-20 hidden lg:block backdrop-blur-xl">
         <div className="p-6 flex items-center gap-3 mb-6 border-b border-white/5">
-          <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-xl flex items-center justify-center font-bold text-white shadow-lg shadow-blue-900/20">P</div>
+          <img src="/logo.png" alt="PostResa Logo" className="w-10 h-10 object-contain rounded-xl" />
           <div>
             <h1 className="font-bold text-white tracking-tight leading-none">POSTRESA</h1>
             <span className="text-[10px] text-blue-400 font-bold uppercase tracking-wider">Espace Professeur</span>

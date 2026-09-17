@@ -135,7 +135,7 @@ const SuperAdminDashboard = () => {
       {/* --- Sidebar --- */}
       <aside className="w-64 bg-slate-950 border-r border-slate-800 flex-shrink-0 fixed h-full z-20 hidden lg:block overflow-y-auto pb-6 custom-scrollbar">
         <div className="p-6 flex items-center gap-3 mb-6 border-b border-slate-800">
-          <div className="w-10 h-10 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center font-bold text-white shadow-[0_0_15px_rgba(6,182,212,0.5)]">S</div>
+          <img src="/logo.png" alt="PostResa Logo" className="w-10 h-10 object-contain rounded-xl" />
           <div>
             <h1 className="font-bold text-white tracking-tight leading-none">POSTRESA</h1>
             <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-wider">Super Admin</span>
