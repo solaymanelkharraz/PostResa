@@ -127,9 +127,9 @@ const AuthPage = () => {
               "Since implementing PostResa, our reservation conflicts have dropped to zero. It's not just a tool; it's the heartbeat of our campus communication."
             </p>
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center font-bold shadow-inner text-white">KA</div>
+              <div className="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center font-bold shadow-inner text-white">YA</div>
               <div>
-                <h4 className="font-bold text-white">Karim Azeggouar</h4>
+                <h4 className="font-bold text-white">Prof. Youssef Alami</h4>
                 <p className="text-sm text-purple-300">Encadrant Pédagogique</p>
               </div>
             </div>
