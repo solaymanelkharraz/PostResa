@@ -39,7 +39,9 @@ const ProfDashboard = () => {
         <div className="p-6 flex items-center gap-3 mb-6 border-b border-white/5">
           <img src="/logo.png" alt="PostResa Logo" className="w-10 h-10 object-contain rounded-xl" />
           <div>
-            <h1 className="font-bold text-white tracking-tight leading-none">POSTRESA</h1>
+            <h1 className="font-black text-xl tracking-tight text-white leading-none">
+              POST<span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">RESA</span>
+            </h1>
             <span className="text-[10px] text-blue-400 font-bold uppercase tracking-wider">Espace Professeur</span>
           </div>
         </div>

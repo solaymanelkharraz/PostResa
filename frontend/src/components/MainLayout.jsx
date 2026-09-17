@@ -130,9 +130,11 @@ const MainLayout = () => {
       {/* --- Top Navigation Bar --- */}
       <nav className="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5 h-16">
         <div className="container mx-auto px-4 h-full flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-2">
-            <img src="/logo.png" alt="PostResa Logo" className="w-8 h-8 object-contain rounded-lg" />
-            <span className="text-lg font-bold text-white tracking-tight hidden sm:block">PostResa</span>
+          <Link to="/" className="flex items-center gap-2 group">
+            <img src="/logo.png" alt="PostResa Logo" className="w-8 h-8 object-contain rounded-lg group-hover:scale-105 transition-transform" />
+            <span className="text-xl font-black tracking-tight text-white hidden sm:block">
+              POST<span className="bg-gradient-to-r from-purple-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent">RESA</span>
+            </span>
           </Link>
 
           <div className="flex-1 max-w-md mx-4 hidden md:block">

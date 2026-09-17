@@ -79,7 +79,9 @@ const LandingPage = () => {
         <div className="container mx-auto px-6 flex justify-between items-center">
           <Link to="/" className="flex items-center gap-3 group">
             <img src="/logo.png" alt="PostResa Logo" className="w-10 h-10 object-contain rounded-xl group-hover:scale-105 transition-transform duration-300" />
-            <span className="text-2xl font-bold tracking-tight text-white group-hover:text-indigo-300 transition-colors duration-300">PostResa</span>
+            <span className="text-2xl font-black tracking-tight text-white">
+              POST<span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">RESA</span>
+            </span>
           </Link>
 
           <div className="hidden md:flex items-center gap-10 text-sm font-medium text-slate-400">

@@ -111,7 +111,9 @@ const AuthPage = () => {
         
         <div className="relative z-10 flex items-center gap-2">
           <img src="/logo.png" alt="PostResa Logo" className="w-8 h-8 object-contain rounded-lg" />
-          <span className="text-xl font-bold tracking-tight">PostResa</span>
+          <span className="text-xl font-black tracking-tight text-white">
+            POST<span className="bg-gradient-to-r from-purple-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent">RESA</span>
+          </span>
         </div>
 
         <div className="relative z-10 max-w-lg">
@@ -149,8 +151,10 @@ const AuthPage = () => {
         <div className="w-full max-w-md">
             
             <div className="lg:hidden flex items-center gap-2 mb-8 justify-center">
-                <div className="w-8 h-8 bg-gradient-to-tr from-purple-600 to-indigo-400 rounded-lg flex items-center justify-center font-bold text-white text-lg">P</div>
-                <span className="text-xl font-bold tracking-tight">PostResa</span>
+                <img src="/logo.png" alt="PostResa Logo" className="w-8 h-8 object-contain rounded-lg" />
+                <span className="text-xl font-black tracking-tight text-white">
+                  POST<span className="bg-gradient-to-r from-purple-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent">RESA</span>
+                </span>
             </div>
 
             <div className="text-center mb-8">
